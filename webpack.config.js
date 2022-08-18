@@ -25,19 +25,22 @@ module.exports = {
     // },
   },
   output: {
-    path: path.resolve(__dirname, "dist/"),
-    publicPath: "/dist/",
+    path: path.join(__dirname, "dist"),
+    // publicPath: "/dist/",
     filename: "bundle.js",
   },
   devServer: {
-    static: {
-      directory: path.join(__dirname, "public/"),
-    },
+    // static: {
+    //   directory: path.join(__dirname, "dist/"),
+    // },
+    // port: 9001,
+    // devMiddleware: {
+    //   publicPath: "/bundle.js",
+    //   // publicPath: "https://localhost:9000/dist/",
+    // },
     port: 9001,
-    devMiddleware: {
-      publicPath: "https://localhost:9000/dist/",
-    },
-    hot: "only",
+    static: "./frontend",
+    hot: true,
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
 };

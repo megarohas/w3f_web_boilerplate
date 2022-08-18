@@ -7,14 +7,13 @@
   "author": "megarohas@gmail.com",
   "license": "MIT",
   "scripts": {
-    "start": "node ./backend/server.js & webpack --watch --hot",
-    "back-start": "node ./backend/server.js",
-    "front-start": "node node_modules/webpack-cli/bin/cli.js --progress --watch",
-    "build": "webpack --mode development",
-    "webpack-watch": "node node_modules/webpack-cli/bin/cli.js --progress --watch"
+    "start": "nodemon ./backend/server.js & webpack-dev-server",
+    "start_backend_frontend_webpackdevserver": "nodemon ./backend/server.js & webpack --watch --hot & webpack-dev-server",
+    "start_backend_frontend": "nodemon ./backend/server.js & webpack --watch --hot",
+    "start_backend": "nodemon ./backend/server.js",
+    "start_frontend": "node node_modules/webpack-cli/bin/cli.js --progress --watch"
   },
   "devDependencies": {
-    "@hot-loader/react-dom": "^17.0.2",
     "nodemon": "^2.0.19"
   },
   "dependencies": {
@@ -33,13 +32,5 @@
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.10.0"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "dist/*",
-      "frontend/*",
-      "node_modules/*",
-      "*.js"
-    ]
   }
 }
