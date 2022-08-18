@@ -7,6 +7,9 @@
   "author": "megarohas@gmail.com",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon app.js"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.19"
   }
 }
