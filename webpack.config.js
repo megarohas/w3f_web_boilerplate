@@ -2,20 +2,20 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: ["./frontend/index.js"],
+  entry: ["./frontend/index.tsx"],
   mode: "development",
   module: {
     rules: [
-      {
-        test: /\.(ts|tsx)?$/,
-        loader: "ts-loader",
-        exclude: /node_modules/,
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         loader: "babel-loader",
         options: { presets: ["@babel/env"] },
+      },
+      {
+        test: /\.(ts|tsx)?$/,
+        loader: "ts-loader",
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -24,7 +24,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx"],
+    extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
     // alias: {
     //   "react-dom": "@hot-loader/react-dom",
     // },
