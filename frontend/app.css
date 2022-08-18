@@ -1,5 +1,9 @@
 .w3fwb-app {
-  margin: 1rem;
-  background-color: green;
+  background-color: rgba(169, 27, 204, 1);
+  color: rgba(217, 142, 212, 1);
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
