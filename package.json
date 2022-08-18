@@ -1,0 +1,12 @@
+{
+  "name": "w3f_web_boilerplate",
+  "version": "0.0.1",
+  "description": "node.js, react.js, postgresql, typescript, grafql, express, redux, ssr, docker, jest",
+  "main": "index.js",
+  "repository": "git@github.com:megarohas/w3f_web_boilerplate.git",
+  "author": "megarohas@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  }
+}
