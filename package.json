@@ -7,7 +7,7 @@
   "author": "megarohas@gmail.com",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --delay 2500ms ./backend/server.ts & webpack-dev-server",
+    "start": "nodemon --delay 500ms ./backend/server.ts & webpack-dev-server",
     "start_backend_frontend_webpackdevserver": "nodemon --delay 2500ms ./backend/server.ts & webpack --watch --hot & webpack-dev-server",
     "start_backend_frontend": "nodemon --delay 2500ms ./backend/server.ts & webpack --watch --hot",
     "start_backend": "nodemon --delay 2500ms ./backend/server.ts",

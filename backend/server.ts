@@ -59,7 +59,7 @@ app.get("/", (req, res) => {
   );
   const styles = sheet.getStyleTags();
   const indexFile = path.resolve("./frontend/index.html");
-  fs.readFile(indexFile, "utf8", (err, data) => {
+  return fs.readFile(indexFile, "utf8", (err, data) => {
     if (err) {
       console.error("Something went wrong:", err);
       return res.status(500).send("Oops, better luck next time!");
@@ -69,6 +69,7 @@ app.get("/", (req, res) => {
       `<div id="react_root_element">${app}</div>`
     );
     data = data.replace('<script src="/bundle.js"></script>', styles);
+    console.log("data:", data);
     return res.send(data);
   });
 });
