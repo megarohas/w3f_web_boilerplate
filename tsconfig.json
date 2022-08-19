@@ -4,6 +4,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "jsx": "react",
+    "lib": ["es6", "dom"],
+    "allowJs": true,
     "esModuleInterop": true,
     "sourceMap": true,
     "baseUrl": ".",

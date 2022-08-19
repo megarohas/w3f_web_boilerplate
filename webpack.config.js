@@ -2,7 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: ["./frontend/index.tsx"],
+  entry: ["./frontend/index.ts"],
   mode: "development",
   module: {
     rules: [

@@ -1,11 +1,11 @@
 import React from "react";
-import "./app.css";
+import { W3FWBWrapper } from "./app_styles";
 
 const App = () => {
   return (
-    <div className="w3fwb-app">
-      <h1> Hello, REACT World!!!!!!</h1>
-    </div>
+    <W3FWBWrapper>
+      <h1> Hello, REACT World!</h1>
+    </W3FWBWrapper>
   );
 };
 
