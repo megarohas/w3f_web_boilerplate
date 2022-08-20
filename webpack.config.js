@@ -2,7 +2,9 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: ["./frontend/client.ts"],
+  entry: {
+    app: ["./frontend/client.ts"],
+  },
   mode: "development",
   devtool: "eval-source-map",
   module: {
@@ -23,17 +25,9 @@ module.exports = {
   output: {
     path: path.join(__dirname, "dist"),
     // publicPath: "/dist/",
-    filename: "bundle.js",
+    filename: "app.js",
   },
   devServer: {
-    // static: {
-    //   directory: path.join(__dirname, "dist/"),
-    // },
-    // port: 9001,
-    // devMiddleware: {
-    //   publicPath: "/bundle.js",
-    //   // publicPath: "https://localhost:9000/dist/",
-    // },
     port: 9001,
     static: "./frontend",
     hot: true,

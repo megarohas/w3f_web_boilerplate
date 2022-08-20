@@ -5,6 +5,7 @@ export const W3FWBWrapper = styled.div`
   color: rgba(217, 142, 212, 1);
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;

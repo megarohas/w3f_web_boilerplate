@@ -6,6 +6,7 @@
   "author": "megarohas@gmail.com",
   "license": "MIT",
   "scripts": {
+    "short_start": "nodemon ./backend/server.ts",
     "start": "nodemon --delay 500ms ./backend/server.ts & webpack-dev-server",
     "start_backend_frontend_webpackdevserver": "nodemon --delay 500ms ./backend/server.ts & webpack --watch --hot & webpack-dev-server",
     "start_backend_frontend": "nodemon --delay 500ms ./backend/server.ts & webpack --watch --hot",
@@ -44,6 +45,7 @@
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.10.0",
+    "webpack-manifest-plugin": "^5.0.0",
     "webpack-node-externals": "^3.0.0"
   }
 }

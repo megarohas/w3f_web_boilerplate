@@ -12,13 +12,17 @@ let express = require("express");
 let app = express();
 // const host_name = process.env.HOST_NAME || "localhost";
 const port = 9000;
-const serverCompiler = webpack(require("../server.webpack.config.js"));
-serverCompiler.run((_errors, _stats) => {
+
+webpack(require("../server.webpack.config.js")).run((_errors, _stats) => {
   if (!_errors) {
     console.log("js code was rebundled");
   }
 });
+
 let server = app.listen(port);
+app.use(express.static("public"));
+app.use(express.static("dist"));
+
 server.once("error", function (err: any) {
   if (err.code === "EADDRINUSE") {
     server.close();
@@ -38,36 +42,17 @@ process.on("SIGINT", function () {
 //   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 // })
 
-app.use(express.static("public"));
-
-app.get("/ssr", (req: any, res: any) => {
-  res.send({ message: "Hello World =)" });
-});
-
-app.get("/bundle.js", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist/bundle.js"));
-});
-
-app.get("/json", (req, res) => {
-  res.send({ message: "Hello World =)" });
-});
-
-app.get("/", (req, res) => {
-  // const root = ReactDOM.createRoot(document.getElementById("react_root_element"));
-  // root.render(React.createElement(App, null));
-
-  // root.render(React.createElement(App, null));
-
+app.get("/", ({ res }) => {
   const sheet = new ServerStyleSheet();
+  const indexFile = path.resolve("./frontend/index.html");
   const app = ReactDOMServer.renderToString(
     sheet.collectStyles(React.createElement(App, null))
   );
   const styles = sheet.getStyleTags();
-  const indexFile = path.resolve("./frontend/index.html");
 
-  return fs.readFile(indexFile, "utf8", (err2, data) => {
-    if (err2) {
-      console.error("Something went wrong:", err2);
+  return fs.readFile(indexFile, "utf8", (err, data) => {
+    if (err) {
+      console.error("Something went wrong:", err);
       return res.status(500).send("Oops, better luck next time!");
     }
     data = data.replace(

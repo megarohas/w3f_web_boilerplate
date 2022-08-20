@@ -1,11 +1,14 @@
 const path = require("path");
 const webpack = require("webpack");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
 module.exports = {
-  entry: ["./backend/ssr_client.ts"],
+  entry: {
+    app: ["./backend/ssr_client.ts"],
+  },
   mode: "development",
   devtool: "eval-source-map",
-  target: "node",
+  // target: "node",
   module: {
     rules: [
       {
@@ -17,13 +20,26 @@ module.exports = {
   },
   resolve: {
     extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
-    // alias: {
-    //   "react-dom": "@hot-loader/react-dom",
-    // },
   },
   output: {
     path: path.join(__dirname, "dist"),
-    // publicPath: "/dist/",
-    filename: "bundle.js",
+    filename: "[name].js",
+    chunkFilename: "[name].js",
   },
+  optimization: {
+    removeAvailableModules: true,
+    runtimeChunk: false,
+    splitChunks: {
+      cacheGroups: {
+        chunks: "all",
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
+          reuseExistingChunk: true,
+        },
+      },
+    },
+  },
+  plugins: [new WebpackManifestPlugin()],
 };

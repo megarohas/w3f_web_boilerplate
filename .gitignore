@@ -5,3 +5,4 @@ yarn.lock
 /dist
 /public/dist
 yarn-error.log
+.DS_Store
