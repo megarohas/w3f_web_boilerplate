@@ -1,31 +1,25 @@
-require("ignore-styles");
-
-require("@babel/register")({
-  ignore: [/(node_modules)/],
-  presets: [
-    "@babel/preset-env",
-    "@babel/preset-react",
-    "@babel/preset-typescript",
-  ],
-  plugins: [
-    ["styled-components", { ssr: true, displayName: true, preprocess: false }],
-  ],
-});
-
 require("dotenv").config();
-const fs = require("fs");
-const React = require("react");
-const ReactDOMServer = require("react-dom/server");
+import fs from "fs";
+import React from "react";
+import ReactDOMServer from "react-dom/server";
 import App from "../frontend/app";
 import { ServerStyleSheet } from "styled-components";
-const path = require("path");
+import webpack from "webpack";
+import path from "path";
+import ReactDOM from "react-dom/client";
+
 let express = require("express");
 let app = express();
-const host_name = process.env.HOST_NAME || "localhost";
+// const host_name = process.env.HOST_NAME || "localhost";
 const port = 9000;
-
+const serverCompiler = webpack(require("../server.webpack.config.js"));
+serverCompiler.run((_errors, _stats) => {
+  if (!_errors) {
+    console.log("js code was rebundled");
+  }
+});
 let server = app.listen(port);
-server.once("error", function (err) {
+server.once("error", function (err: any) {
   if (err.code === "EADDRINUSE") {
     server.close();
   }
@@ -42,7 +36,13 @@ process.on("SIGINT", function () {
 
 // app.get("/", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../frontend/index.html"));
-// });
+// })
+
+app.use(express.static("public"));
+
+app.get("/ssr", (req: any, res: any) => {
+  res.send({ message: "Hello World =)" });
+});
 
 app.get("/bundle.js", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/bundle.js"));
@@ -53,23 +53,28 @@ app.get("/json", (req, res) => {
 });
 
 app.get("/", (req, res) => {
+  // const root = ReactDOM.createRoot(document.getElementById("react_root_element"));
+  // root.render(React.createElement(App, null));
+
+  // root.render(React.createElement(App, null));
+
   const sheet = new ServerStyleSheet();
   const app = ReactDOMServer.renderToString(
     sheet.collectStyles(React.createElement(App, null))
   );
   const styles = sheet.getStyleTags();
   const indexFile = path.resolve("./frontend/index.html");
-  return fs.readFile(indexFile, "utf8", (err, data) => {
-    if (err) {
-      console.error("Something went wrong:", err);
+
+  return fs.readFile(indexFile, "utf8", (err2, data) => {
+    if (err2) {
+      console.error("Something went wrong:", err2);
       return res.status(500).send("Oops, better luck next time!");
     }
     data = data.replace(
       '<div id="react_root_element"></div>',
       `<div id="react_root_element">${app}</div>`
     );
-    data = data.replace('<script src="/bundle.js"></script>', styles);
-    console.log("data:", data);
+    data = data.replace('<div id="styled_components_styles"></div>', styles);
     return res.send(data);
   });
 });

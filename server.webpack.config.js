@@ -2,9 +2,10 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: ["./frontend/client.ts"],
+  entry: ["./backend/ssr_client.ts"],
   mode: "development",
   devtool: "eval-source-map",
+  target: "node",
   module: {
     rules: [
       {
@@ -25,24 +26,4 @@ module.exports = {
     // publicPath: "/dist/",
     filename: "bundle.js",
   },
-  devServer: {
-    // static: {
-    //   directory: path.join(__dirname, "dist/"),
-    // },
-    // port: 9001,
-    // devMiddleware: {
-    //   publicPath: "/bundle.js",
-    //   // publicPath: "https://localhost:9000/dist/",
-    // },
-    port: 9001,
-    static: "./frontend",
-    hot: true,
-    proxy: [
-      {
-        // path: "/*",
-        // target: "http://localhost:9000",
-      },
-    ],
-  },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
 };
