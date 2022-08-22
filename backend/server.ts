@@ -7,6 +7,7 @@ import { ServerStyleSheet } from "styled-components";
 import webpack from "webpack";
 import path from "path";
 import ReactDOM from "react-dom/client";
+import { StaticRouter } from "react-router-dom/server";
 
 let express = require("express");
 let app = express();
@@ -38,15 +39,21 @@ process.on("SIGINT", function () {
   process.kill(process.pid, "SIGINT");
 });
 
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../frontend/index.html"));
-// })
+app.get("/json", (req, res) => {
+  res.send({ message: "OK" });
+});
 
-app.get("/", ({ res }) => {
+app.get("/*", (req, res) => {
   const sheet = new ServerStyleSheet();
   const indexFile = path.resolve("./frontend/index.html");
   const app = ReactDOMServer.renderToString(
-    sheet.collectStyles(React.createElement(App, null))
+    sheet.collectStyles(
+      React.createElement(
+        StaticRouter,
+        { location: req.url },
+        React.createElement(App)
+      )
+    )
   );
   const styles = sheet.getStyleTags();
 

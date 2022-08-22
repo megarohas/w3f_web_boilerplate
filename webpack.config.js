@@ -31,12 +31,13 @@ module.exports = {
     port: 9001,
     static: "./frontend",
     hot: true,
-    proxy: [
-      {
-        // path: "/*",
-        // target: "http://localhost:9000",
-      },
-    ],
+    historyApiFallback: true,
+    // proxy: [
+    //   {
+    //     // path: "/*",
+    //     // target: "http://localhost:9000",
+    //   },
+    // ],
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
 };
